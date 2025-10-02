@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Certificate Verification Portal | AK Health & Safety Training</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Navigation Bar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #007BFF;
+      padding: 15px 30px;
+    }
+
+    .logo img {
+      height: 54px;
+      width: auto;
+      display: block;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.06);
+      padding: 4px 8px;
+      transition: box-shadow 0.15s, transform 0.3s;
+    }
+
+    .logo img:hover {
+      box-shadow: 0 4px 16px rgba(30, 64, 175, 0.14);
+      background: #f5f8ff;
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+    }
+
+    .nav-links li {
+      display: inline;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s, background-color 0.3s;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+
+    .nav-links a:hover {
+      color: #dfe9ff;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Certificate Verification Styles */
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --background: #f3f4f6;
+      --white: #fff;
+      --shadow: 0 6px 24px rgba(30, 64, 175, 0.09);
+      --radius: 14px;
+    }
+    
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background-color: var(--background);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .form-box {
+      width: 100%;
+      max-width: 420px;
+      background-color: var(--white);
+      padding: 38px 28px 32px 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 24px;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    h2 {
+      text-align: center;
+      color: var(--primary-dark);
+      margin-bottom: 30px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -1px;
+    }
+    
+    label {
+      font-weight: 600;
+      margin-bottom: 7px;
+      display: block;
+      color: #4b5563;
+      font-size: 1rem;
+    }
+    
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 22px;
+      border: 1.5px solid #dbeafe;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #f9fafb;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    
+    input[type="text"]:focus {
+      border-color: var(--primary);
+      background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    button {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1.08rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+    }
+    
+    button:hover {
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .result {
+      margin-top: 24px;
+      font-size: 1.06rem;
+      text-align: center;
+      font-weight: 600;
+      min-height: 30px;
+      letter-spacing: 0.4px;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    
+    .result.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .valid {
+      color: var(--success);
+    }
+    
+    .invalid {
+      color: var(--danger);
+    }
+    
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .developer {
+      margin-top: 32px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #64748b;
+      font-style: italic;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #1e40af;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .footer-logo {
+      height: 40px;
+      width: auto;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .footer-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
+      margin-top: 15px;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+    
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .form-box {
+        padding: 25px 20px;
+        margin: 15px;
+      }
+      
+      h2 {
+        font-size: 1.7rem;
+      }
+      
+      .footer-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .form-box {
+        padding: 20px 15px;
+        margin: 10px;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      input[type="text"], button {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html">
+          <!-- ✅ Make sure you have this file in /images/logo.png -->
+          <img src="images/logo.png" alt="AK Health & Safety Training Logo">
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="courses.html">Courses</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Certificate Verification Form -->
+  <div class="container">
+    <div class="form-box">
+      <h2>Certificate Verification Portal</h2>
+      <form id="verificationForm" autocomplete="off">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required />
+        <label for="certificate_number">Certificate Number</label>
+        <input type="text" id="certificate_number" name="certificate_number" required />
+        <button type="submit" id="verifyButton">
+          <span id="buttonText">Verify Certificate</span>
+        </button>
+      </form>
+      <div id="resultMessage" class="result"></div>
+      <div class="developer">
+        Authorized by Aizaz HSE Director
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <img src="images/logo.png" alt="AK Health & Safety Training" class="footer-logo">
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="courses.html">Courses</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="copyright">
+        &copy; 2025 AK Health & Safety Training. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // API Base URL - uses localhost in development, can be overridden in production
+    const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+      ? 'http://localhost:5000' 
+      : 'https://YOUR_RENDER_APP_URL.onrender.com'; // Update this after deploying backend
+    
+    document.getElementById('verificationForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const certNumber = document.getElementById('certificate_number').value.trim().toUpperCase();
+      const resultMessage = document.getElementById('resultMessage');
+      const verifyButton = document.getElementById('verifyButton');
+      const buttonText = document.getElementById('buttonText');
+
+      if (!name || !certNumber) {
+        showResult("⚠️ Please enter all fields.", "invalid");
+        return;
+      }
+
+      // Show loading state
+      verifyButton.disabled = true;
+      buttonText.innerHTML = '<span class="spinner"></span> Verifying...';
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/certificates/${certNumber}`);
+        const data = await response.json();
+
+        if (data.valid) {
+          const resultText = 
+            `✅ Valid Certificate\n` +
+            `Certificate No: ${data.certificate.certNumber}\n` +
+            `Student Name: ${data.certificate.studentName || name}\n` +
+            `Course: ${data.certificate.courseName}\n` +
+            `Issued: ${data.certificate.issueDate}\n` +
+            `Status: ${data.certificate.status}\n` +
+            `Authorized by: ${data.certificate.authorizedBy}`;
+          showResult(resultText, "valid");
+        } else {
+          showResult("❌ Certificate not found. Please check details.", "invalid");
+        }
+      } catch (error) {
+        console.error("Error verifying certificate:", error);
+        showResult("⚠️ Server error. Please try again later.", "invalid");
+      } finally {
+        // Reset button state
+        verifyButton.disabled = false;
+        buttonText.textContent = "Verify Certificate";
+      }
+    });
+
+    function showResult(message, type) {
+      const resultMessage = document.getElementById('resultMessage');
+      resultMessage.textContent = message;
+      resultMessage.className = `result ${type}`;
+      
+      // Trigger animation
+      resultMessage.classList.remove('show');
+      void resultMessage.offsetWidth; // Trigger reflow
+      resultMessage.classList.add('show');
+    }
+  </script>
+</body>
+</html>
