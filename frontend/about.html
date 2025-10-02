@@ -11,7 +11,7 @@
   <style>
     /* General Reset */
     body {
-      font-family: "Segoe UI", Arial, sans-serif;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
       margin: 0;
       padding: 0;
       background: #f4f6f9;
@@ -27,10 +27,21 @@
       padding: 15px 30px;
     }
 
-    .logo {
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: bold;
+    .logo img {
+      height: 54px;
+      width: auto;
+      display: block;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(30, 64, 175, 0.06);
+      padding: 4px 8px;
+      transition: box-shadow 0.15s, transform 0.3s;
+    }
+
+    .logo img:hover {
+      box-shadow: 0 4px 16px rgba(30, 64, 175, 0.14);
+      background: #f5f8ff;
+      transform: scale(1.05);
     }
 
     .nav-links {
@@ -48,14 +59,15 @@
       color: #fff;
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.3s;
+      transition: color 0.3s, background-color 0.3s;
+      padding: 8px 12px;
+      border-radius: 4px;
     }
 
     .nav-links a:hover,
     .nav-links a.active {
       color: #dfe9ff;
-      border-bottom: 2px solid #fff;
-      padding-bottom: 2px;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     /* Mobile Responsive */
@@ -63,11 +75,14 @@
       .navbar {
         flex-direction: column;
         align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
       }
       .nav-links {
         flex-direction: column;
         width: 100%;
         margin-top: 10px;
+        gap: 10px;
       }
       .nav-links li {
         margin: 8px 0;
@@ -78,6 +93,12 @@
     #about {
       background: #f9fafc;
       padding: 50px 20px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .about-container {
@@ -87,9 +108,10 @@
 
     #about h2 {
       text-align: center;
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #222;
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      color: #1e40af;
+      font-weight: 700;
     }
 
     #about p {
@@ -97,28 +119,207 @@
       font-size: 1.1rem;
       color: #555;
       margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .mission-vision {
+      display: flex;
+      gap: 30px;
+      margin: 40px 0;
+    }
+
+    .mission, .vision {
+      flex: 1;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .mission:hover, .vision:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .mission h3, .vision h3 {
+      color: #007BFF;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     #about h3 {
       color: #007BFF;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #dbeafe;
+      padding-bottom: 10px;
     }
 
     #about ul {
       margin-left: 20px;
       margin-bottom: 30px;
       color: #444;
-      line-height: 1.6;
+      line-height: 1.8;
+    }
+
+    #about li {
+      margin-bottom: 12px;
+    }
+
+    .certification-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+    }
+
+    .certification-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .certification-card h4 {
+      color: #1e40af;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    /* Stats Section */
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      background: #1e40af;
+      color: white;
+      padding: 40px 20px;
+      margin: 40px 0;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-size: 2.5rem;
+      margin: 0 0 10px 0;
+    }
+
+    .stat-item p {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      margin: 50px 0;
+    }
+
+    .testimonial {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .testimonial blockquote {
+      font-style: italic;
+      color: #555;
+      margin: 0 0 20px 0;
+      padding: 0;
+      border: none;
+      position: relative;
+    }
+
+    .testimonial-quote {
+      font-size: 4rem;
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      color: #dbeafe;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #007BFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
     }
 
     /* Footer */
     footer {
+      background-color: #1e40af;
+      color: white;
+      padding: 30px 0;
       text-align: center;
-      padding: 20px;
-      background: #f1f1f1;
-      margin-top: 40px;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .footer-logo {
+      height: 40px;
+      width: auto;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .footer-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
+      margin-top: 15px;
+      color: #94a3b8;
       font-size: 0.9rem;
-      color: #666;
+    }
+    
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .mission-vision {
+        flex-direction: column;
+      }
+      
+      .stats {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .footer-links {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
   </style>
 </head>
@@ -126,10 +327,14 @@
   <!-- Navigation Bar -->
   <header>
     <nav class="navbar">
-      <div class="logo">AK Health & Safety Training</div>
+      <div class="logo">
+        <a href="index.html">
+          <img src="images/logo.png" alt="AK Health & Safety Training Logo">
+        </a>
+      </div>
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
         <li><a href="courses.html">Courses</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -146,22 +351,100 @@
         for safer workplaces across industries.
       </p>
 
+      <div class="mission-vision">
+        <div class="mission">
+          <h3>🎯 Our Mission</h3>
+          <p>To create safer work environments by providing comprehensive health and safety education that empowers professionals with the knowledge and skills needed to protect themselves and others in any workplace setting.</p>
+        </div>
+        <div class="vision">
+          <h3>🚀 Our Vision</h3>
+          <p>To be the leading provider of occupational health and safety training globally, recognized for our commitment to excellence, innovation in teaching methods, and measurable impact on workplace safety standards.</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-item">
+          <h3>5000+</h3>
+          <p>Certificates Issued</p>
+        </div>
+        <div class="stat-item">
+          <h3>98%</h3>
+          <p>Student Satisfaction</p>
+        </div>
+        <div class="stat-item">
+          <h3>15+</h3>
+          <p>Years Experience</p>
+        </div>
+      </div>
+
       <h3>Our Certifications</h3>
-      <ul>
-        <li><strong>NEBOSH</strong>: International General Certificate (IGC) and Level 6 Diploma.</li>
-        <li><strong>IOSH</strong>: IOSH Managing Safely.</li>
-        <li><strong>OSHA</strong>: 30-hour training programs for the American context.</li>
-        <li><strong>OTHM</strong>: Level 6 Diploma in Occupational Health and Safety.</li>
-      </ul>
+      <div class="certification-card">
+        <h4>NEBOSH</h4>
+        <ul>
+          <li><strong>International General Certificate (IGC)</strong>: Comprehensive foundation in health and safety management</li>
+          <li><strong>Level 6 Diploma</strong>: Advanced qualification for health and safety professionals</li>
+        </ul>
+      </div>
+
+      <div class="certification-card">
+        <h4>IOSH</h4>
+        <ul>
+          <li><strong>Managing Safely</strong>: Designed for managers and supervisors to effectively manage health and safety in their teams</li>
+        </ul>
+      </div>
+
+      <div class="certification-card">
+        <h4>OSHA</h4>
+        <ul>
+          <li><strong>30-hour Training</strong>: In-depth safety training for construction and general industry workers in the American context</li>
+        </ul>
+      </div>
+
+      <div class="certification-card">
+        <h4>OTHM</h4>
+        <ul>
+          <li><strong>Level 6 Diploma in Occupational Health and Safety</strong>: Advanced qualification recognized internationally</li>
+        </ul>
+      </div>
 
       <h3>Specialized Courses</h3>
       <ul>
-        <li><strong>Risk Assessment:</strong> Hazard identification and risk assessment.</li>
-        <li><strong>First Aid:</strong> Immediate incident response training.</li>
-        <li><strong>Fire Safety:</strong> Fire risk assessment and prevention.</li>
-        <li><strong>ISO Standards:</strong> Lead auditor courses for ISO 9001, ISO 14001, ISO 45001.</li>
-        <li><strong>Industry-Specific Training:</strong> Construction safety, manual handling, electrical safety.</li>
+        <li><strong>Risk Assessment:</strong> Hazard identification and risk assessment</li>
+        <li><strong>First Aid:</strong> Immediate incident response training</li>
+        <li><strong>Fire Safety:</strong> Fire risk assessment and prevention</li>
+        <li><strong>ISO Standards:</strong> Lead auditor courses for ISO 9001, ISO 14001, ISO 45001</li>
+        <li><strong>Industry-Specific Training:</strong> Construction safety, manual handling, electrical safety</li>
       </ul>
+
+      <div class="testimonials">
+        <h3>What Our Students Say</h3>
+        <div class="testimonial">
+          <div class="testimonial-quote">"</div>
+          <blockquote>
+            The NEBOSH course completely transformed my approach to workplace safety. The practical examples and real-world case studies made complex concepts easy to understand and apply in my job as a safety coordinator.
+          </blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">SJ</div>
+            <div>
+              <strong>Sarah Johnson</strong>
+              <div>Safety Coordinator, Manufacturing Co.</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-quote">"</div>
+          <blockquote>
+            As a construction manager, I needed a comprehensive understanding of OSHA standards. The 30-hour training exceeded my expectations with its detailed coverage and experienced instructors.
+          </blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">MR</div>
+            <div>
+              <strong>Michael Rodriguez</strong>
+              <div>Construction Manager</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <p>
         Whether you are an individual seeking professional growth or an organization aiming to strengthen workplace safety, 
@@ -172,7 +455,18 @@
 
   <!-- Footer -->
   <footer>
-    &copy; 2025 AK Health & Safety Training. All rights reserved.
+    <div class="footer-content">
+      <img src="images/logo.png" alt="AK Health & Safety Training" class="footer-logo">
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="courses.html">Courses</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="copyright">
+        &copy; 2025 AK Health & Safety Training. All rights reserved.
+      </div>
+    </div>
   </footer>
 </body>
 </html>

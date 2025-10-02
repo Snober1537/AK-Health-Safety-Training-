@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Login | AK Health & Safety Training</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <style>
+    /* General Reset */
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1e40af, #007BFF);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Login Container */
+    .login-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 450px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo-container img {
+      height: 80px;
+      width: auto;
+      margin-bottom: 20px;
+    }
+
+    .logo-container h1 {
+      color: #1e40af;
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .logo-container p {
+      color: #666;
+      margin: 10px 0 0 0;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #4b5563;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #007BFF;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+
+    .submit-btn {
+      background: linear-gradient(90deg, #007BFF, #1e40af);
+      color: white;
+      border: none;
+      padding: 16px 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(90deg, #1e40af, #007BFF);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-status {
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .form-status.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      display: none;
+      margin-right: 10px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .login-box {
+        padding: 30px 20px;
+        margin: 10px;
+      }
+      
+      .logo-container img {
+        height: 60px;
+      }
+      
+      .logo-container h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Container -->
+  <div class="login-container">
+    <div class="login-box">
+      <div class="logo-container">
+        <img src="images/logo.png" alt="AK Health & Safety Training Logo">
+        <h1>Admin Portal</h1>
+        <p>Director Aizaz - Certificate Management System</p>
+      </div>
+      
+      <div id="formStatus" class="form-status"></div>
+      
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" class="form-control" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+        
+        <button type="submit" id="submitBtn" class="submit-btn">
+          <span id="spinner" class="spinner"></span>
+          <span id="buttonText">Sign In</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 AK Health & Safety Training. All rights reserved.
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formStatus = document.getElementById('formStatus');
+      const submitBtn = document.getElementById('submitBtn');
+      const spinner = document.getElementById('spinner');
+      const buttonText = document.getElementById('buttonText');
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      spinner.style.display = 'inline-block';
+      buttonText.textContent = 'Authenticating...';
+      
+      // Get form values
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      // In a real application, you would authenticate with the backend
+      // For now, we'll simulate authentication
+      setTimeout(() => {
+        // Simple check for demo purposes
+        if (username === 'aizaz' && password === 'director123') {
+          // Redirect to admin dashboard
+          window.location.href = 'admin-dashboard.html';
+        } else {
+          // Show error
+          formStatus.className = 'form-status error';
+          formStatus.textContent = 'Invalid username or password. Please try again.';
+          
+          // Reset button
+          submitBtn.disabled = false;
+          spinner.style.display = 'none';
+          buttonText.textContent = 'Sign In';
+          
+          // Hide error after 5 seconds
+          setTimeout(() => {
+            formStatus.style.display = 'none';
+          }, 5000);
+        }
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

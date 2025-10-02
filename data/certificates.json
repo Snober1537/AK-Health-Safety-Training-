@@ -1,0 +1,27 @@
+[
+  {
+    "_id": "68dd71efc7d8a29c4dec9ddb",
+    "certificateNo": "AKHS-001",
+    "studentName": "John Doe",
+    "courseName": "HSE Documentation",
+    "issueDate": "2025-09-30",
+    "status": "Valid",
+    "authorizedBy": "Aizaz HSE Director"
+  },
+  {
+    "certificateNo": "AKHS-002",
+    "studentName": "Jane Smith",
+    "courseName": "Risk Assessment Training",
+    "issueDate": "2025-09-28",
+    "status": "Valid",
+    "authorizedBy": "Aizaz HSE Director"
+  },
+  {
+    "certificateNo": "AKHS-003",
+    "studentName": "Robert Johnson",
+    "courseName": "Fire Safety Management",
+    "issueDate": "2025-09-25",
+    "status": "Valid",
+    "authorizedBy": "Aizaz HSE Director"
+  }
+]
